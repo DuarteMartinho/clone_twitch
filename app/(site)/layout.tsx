@@ -1,6 +1,7 @@
 import Navbar from "./_components/Navbar";
-import Sidebar from "./_components/Sidebar";
+import { Sidebar, SidebarSkeleton } from "./_components/Sidebar";
 import Container from "./_components/Container";
+import { Suspense } from "react";
 
 const SiteLayout = ({
     children
@@ -13,7 +14,11 @@ const SiteLayout = ({
             <div
                 className="flex h-full pt-20"
             >
-                <Sidebar />
+                <Suspense
+                    fallback={<SidebarSkeleton />}
+                >
+                    <Sidebar />
+                </Suspense>
                 <Container>
                     {children}
                 </Container>
