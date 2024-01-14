@@ -1,3 +1,5 @@
+import { Logo } from "./_components/Logo";
+
 const AuthLayout = ({
     children
 }: {
@@ -5,8 +7,9 @@ const AuthLayout = ({
 }) => {
     return (
         <div
-            className="h-full flex flex-col items-center justify-center"
+            className="h-full flex flex-col items-center justify-center space-y-6"
         >
+            <Logo />
             {children}
         </div>
     );
