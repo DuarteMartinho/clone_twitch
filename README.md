@@ -29,3 +29,11 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/register
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 ```
+
+# Ngrok
+
+To run ngrok in the terminal, run the following command:
+
+`ngrok http --domain=$DOMAIN 3000`
+
+make sure to replace the domain with your domain name.
