@@ -13,8 +13,6 @@ export const Following = ({
 }: FollowingProps) => {
     const { collapsed } = useSidebar();
 
-    console.log(data);
-
     if (!data.length) {
         return null;
     }
