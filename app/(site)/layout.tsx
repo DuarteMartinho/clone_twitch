@@ -1,4 +1,6 @@
 import Navbar from "./_components/Navbar";
+import Sidebar from "./_components/Sidebar";
+import Container from "./_components/Container";
 
 const SiteLayout = ({
     children
@@ -11,7 +13,10 @@ const SiteLayout = ({
             <div
                 className="flex h-full pt-20"
             >
-                {children}
+                <Sidebar />
+                <Container>
+                    {children}
+                </Container>
             </div>
         </>
     );
