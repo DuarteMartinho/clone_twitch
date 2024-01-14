@@ -16,6 +16,7 @@ npx prisma studio
 - `NEXT_PUBLIC_CLERK_SIGN_UP_URL`-> Clerk Sign Up Url e.g /register
 - `NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL`-> Clerk After Sign In Url e.g /dashboard
 - `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL`-> Clerk After Sign Up Url e.g /dashboard
+- `CLERK_WEBHOOK_SECRET` -> Clerk webhook secret
 - `DATABASE_URL` -> Database Url
 
 ### Sample .env file
@@ -28,6 +29,7 @@ NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/register
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+CLERK_WEBHOOK_SECRET=
 ```
 
 # Ngrok
