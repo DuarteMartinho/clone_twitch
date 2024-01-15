@@ -7,6 +7,7 @@
 npx prisma db push
 npx prisma generate
 npx prisma studio
+npx prisma migrate reset
 
 ## Environment Variables
 

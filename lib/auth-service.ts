@@ -1,23 +1,47 @@
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from '@clerk/nextjs';
 
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export const getSelf = async () => {
-    const self = await currentUser();
-    
-    if (!self || !self.username) {
-        throw new Error("Not authenticated");
-    }
+  const self = await currentUser();
 
-    const user = await db.user.findFirst({
-        where: {
-            externalUserId: self.id
-        }
-    });
+  if (!self || !self.username) {
+    throw new Error('Not authenticated');
+  }
 
-    if (!user) {
-        throw new Error("User not found");
-    }
+  const user = await db.user.findFirst({
+    where: {
+      externalUserId: self.id,
+    },
+  });
 
-    return user;
-}
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  return user;
+};
+
+export const getSelfByUsername = async (username: string) => {
+  const self = await currentUser();
+
+  if (!self || !self.username) {
+    throw new Error('Not authenticated');
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  if (user.externalUserId !== self.id || user.username !== self.username) {
+    throw new Error('Not authorized');
+  }
+
+  return user;
+};
