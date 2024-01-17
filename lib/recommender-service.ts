@@ -40,7 +40,11 @@ export const getRecommendations = async () => {
         ],
       },
       include: {
-        stream: true,
+        stream: {
+          select: {
+            isLive: true,
+          },
+        },
       },
       orderBy: {
         createdAt: 'desc',
@@ -51,7 +55,11 @@ export const getRecommendations = async () => {
   } else {
     const users = await db.user.findMany({
       include: {
-        stream: true,
+        stream: {
+          select: {
+            isLive: true,
+          },
+        },
       },
       orderBy: {
         createdAt: 'desc',
