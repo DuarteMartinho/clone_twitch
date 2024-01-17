@@ -1,14 +1,32 @@
-interface DashboardHomePageProps {
+import { getSelfByUsername } from "@/lib/auth-service";
+import { currentUser } from "@clerk/nextjs";
+import { StreamPlayer } from "../_components/StreamPlayer";
 
+interface DashboardHomePageProps {
+    params: {
+        username: string;
+    }
 }
 
 const DashboardHomePage = async ({
-
+    params: {
+        username
+    }
 }: DashboardHomePageProps) => {
+    const user = await currentUser();
+    const self = await getSelfByUsername(username);
+
+    if (!self || user?.id !== self.externalUserId || !self.stream) {
+        throw new Error("You are not authorized to view this page.");
+    }
 
     return (
-        <div>
-            <h1>Dashboard Home Page</h1>
+        <div className="h-full">
+            <StreamPlayer
+                user={self}
+                stream={self.stream}
+                isFollowing={true}
+            />
         </div>
     );
 }
