@@ -1,6 +1,6 @@
+import { StreamPlayer } from "@/components/StreamPlayer";
 import { getSelfByUsername } from "@/lib/auth-service";
 import { currentUser } from "@clerk/nextjs";
-import { StreamPlayer } from "../_components/StreamPlayer";
 
 interface DashboardHomePageProps {
     params: {
