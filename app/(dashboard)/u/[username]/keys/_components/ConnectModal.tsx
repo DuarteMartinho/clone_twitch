@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogHeader,
     DialogTrigger
@@ -24,7 +25,38 @@ import {
 } from "@/components/ui/select";
 import { AlertTriangle } from "lucide-react";
 
+import { IngressInput } from "livekit-server-sdk";
+import { ElementRef, useRef, useState, useTransition } from "react";
+import { createIngress } from "@/actions/ingress";
+import { toast } from "sonner";
+
+const RTMP = String(IngressInput.RTMP_INPUT);
+const WHIP = String(IngressInput.WHIP_INPUT);
+
+type IngressType = typeof RTMP | typeof WHIP;
+
 export const ConnectModal = () => {
+    const closeRef = useRef<ElementRef<"button">>(null);
+    const [ingressType, setIngressType] = useState<IngressType>("");
+    const [isPending, startTransition] = useTransition();
+
+    const handleGenerate = () => {
+        if (!ingressType) return;
+
+        startTransition(() => {
+            createIngress({
+                ingressType: parseInt(ingressType)
+            })
+                .then((ingress) => {
+                    console.log(ingress);
+                    toast.success("Ingress created");
+                    closeRef.current?.click();
+                }).catch((err) => {
+                    console.error(err);
+                    toast.error("Failed to create ingress");
+                });
+        });
+    }
     return (
         <Dialog >
             <DialogTrigger
@@ -40,21 +72,26 @@ export const ConnectModal = () => {
                 <DialogHeader>
                     Generate Connection
                 </DialogHeader>
-                <Select>
+                <Select
+                    value={ingressType}
+                    onValueChange={(value) => {
+                        setIngressType(value);
+                    }}
+                >
                     <SelectTrigger
                         className="w-full"
                     >
-                        <SelectValue>
-                            Ingress Type
-                        </SelectValue>
+                        <SelectValue
+                            placeholder="Ingress Type"
+                        />
                         <SelectContent>
                             <SelectItem
-                                value="RTMP"
+                                value={RTMP}
                             >
                                 RTMP
                             </SelectItem>
                             <SelectItem
-                                value="WHIP"
+                                value={WHIP}
                             >
                                 WHIP
                             </SelectItem>
@@ -69,19 +106,25 @@ export const ConnectModal = () => {
                         Warning!
                     </AlertTitle>
                     <AlertDescription>
-                        This action will generate a new connection key. If you are already connected to a device, you will need to reconnect with the new key.
+                        This action will generate a new connection key for you to use. You can only have one active connection at a time.
                     </AlertDescription>
                 </Alert>
                 <div
                     className="flex justify-between"
                 >
-                    <Button
-                        variant={"ghost"}
+                    <DialogClose
+                        ref={closeRef}
+                        asChild
                     >
-                        Cancel
-                    </Button>
+                        <Button
+                            variant={"ghost"}
+                        >
+                            Cancel
+                        </Button>
+                    </DialogClose>
                     <Button
-                        onClick={() => { }}
+                        disabled={isPending || !ingressType}
+                        onClick={handleGenerate}
                         variant={"primary"}
                     >
                         Generate

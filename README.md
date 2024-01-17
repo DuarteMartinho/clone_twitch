@@ -21,6 +21,10 @@ npx prisma migrate reset
 - `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL`-> Clerk After Sign Up Url e.g /dashboard
 - `CLERK_WEBHOOK_SECRET` -> Clerk webhook secret
 - `DATABASE_URL` -> Database Url
+- `LIVEKIT_API_URL` -> Livekit API Url
+- `LIVEKIT_API_KEY` -> Livekit API Key
+- `LIVEKIT_API_SECRET` -> Livekit API Secret
+- `NEXT_PUBLIC_LIVEKIT_WS_URL` -> Livekit WS Url
 
 ### Sample .env file
 
