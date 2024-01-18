@@ -6,6 +6,9 @@ import { Stream, User } from "@prisma/client";
 import { LiveKitRoom } from "@livekit/components-react";
 import { Video } from "./Video";
 import { cn } from "@/lib/utils";
+import { useChatSidebar } from "@/store/use-chat-sidebar";
+import { Chat } from "./Chat";
+import { ChatToggle } from "./ChatToggle";
 
 interface StreamPlayerProps {
     user: (User & {
@@ -26,6 +29,8 @@ export const StreamPlayer = ({
         identity,
     } = useViewerToken(user.id);
 
+    const { collapsed } = useChatSidebar();
+
     if (!token || !name || !identity) {
         <div>
             Cannot watch the stream
@@ -34,11 +39,19 @@ export const StreamPlayer = ({
 
     return (
         <>
+            {collapsed && (
+                <div
+                    className="hidden lg:block fixed top-[100px] right-2 z-50"
+                >
+                    <ChatToggle />
+                </div>
+            )}
             <LiveKitRoom
                 token={token}
                 serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL}
                 className={cn(
-                    "grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 h-full"
+                    "grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 h-full",
+                    collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
                 )}
             >
                 <div
@@ -47,6 +60,22 @@ export const StreamPlayer = ({
                     <Video
                         hostName={user.username}
                         hostIdentity={user.id}
+                    />
+                </div>
+                <div
+                    className={cn(
+                        "col-span-1",
+                        collapsed && "hidden"
+                    )}
+                >
+                    <Chat
+                        viewerName={name}
+                        hostName={user.username}
+                        hostIdentity={user.id}
+                        isFollowing={isFollowing}
+                        isChatEnabled={stream.isChatEnabled}
+                        isChatDelayed={stream.isChatDelayed}
+                        isChatFollowersOnly={stream.isChatFollowersOnly}
                     />
                 </div>
             </LiveKitRoom>
