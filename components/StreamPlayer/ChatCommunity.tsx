@@ -42,7 +42,7 @@ export const ChatCommunity = ({
         })
     }, [participants, debouncedValue]);
 
-    if (!isHidden) {
+    if (isHidden) {
         return (
             <div
                 className="flex flex-1 items-center justify-center"

@@ -69,7 +69,7 @@ export const ChatForm = ({
                 <Input
                     className={cn(
                         "border-white/10",
-                        isFollowersOnly && "border-t-none border-t-0",
+                        (isFollowersOnly || isDelayed) && "border-t-none border-t-0",
                     )}
                     onChange={(e) => {
                         onChange(e.target.value);
