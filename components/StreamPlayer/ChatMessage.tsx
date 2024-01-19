@@ -33,6 +33,7 @@ export const ChatMessage = ({
                     >
                         {message.from?.name}
                     </span>
+                    :
                 </p>
                 <p
                     className="text-sm break-all"

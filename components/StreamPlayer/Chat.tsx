@@ -10,9 +10,10 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar";
 import { useEffect, useMemo, useState } from "react";
-import { ChatHeader } from "./ChatHeader";
-import { ChatForm } from "./ChatForm";
-import { ChatList } from "./ChatList";
+import { ChatHeader, ChatHeaderSkeleton } from "./ChatHeader";
+import { ChatForm, ChatFormSkeleton } from "./ChatForm";
+import { ChatList, ChatListSkeleton } from "./ChatList";
+import { ChatCommunity } from "./ChatCommunity";
 
 interface ChatProps {
     hostName: string;
@@ -96,12 +97,26 @@ export const Chat = ({
             {
                 variant === ChatVariant.COMUUNITY && (
                     <>
-                        <p>
-                            Community Mode
-                        </p>
+                        <ChatCommunity
+                            viewerName={viewerName}
+                            hostName={hostName}
+                            isHidden={isHidden}
+                        />
                     </>
                 )
             }
         </div>
+    )
+}
+
+export const ChatSkeleton = () => {
+    return (
+        <div
+            className="flex flex-col border-2 border-l border-b pt-0 h-[calc(100vh-80px)]"
+        >
+            <ChatHeaderSkeleton />
+            <ChatListSkeleton />
+            <ChatFormSkeleton />
+        </div >
     )
 }
