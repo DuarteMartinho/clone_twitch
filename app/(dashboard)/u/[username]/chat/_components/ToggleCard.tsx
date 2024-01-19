@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 
-import { updateStream } from "@/actions/switch";
+import { updateStream } from "@/actions/stream";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
