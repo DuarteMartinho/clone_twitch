@@ -9,7 +9,7 @@ import { useSidebar } from "@/store/use-sidebar";
 
 import { LiveBadge } from "@/components/live-badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { UserAvatar } from "../UserAvatar";
+import { UserAvatar } from "../../../../components/UserAvatar";
 
 interface UserItemProps {
     username: string;

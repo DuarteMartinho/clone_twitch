@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 import { Chat, ChatSkeleton } from "./Chat";
 import { ChatToggle } from "./ChatToggle";
+import { Header, HeaderSkeleton } from "./Header";
 
 interface StreamPlayerProps {
     user: (User & {
@@ -59,6 +60,14 @@ export const StreamPlayer = ({
                         hostName={user.username}
                         hostIdentity={user.id}
                     />
+                    <Header
+                        hostName={user.username}
+                        hostIdentity={user.id}
+                        imageUrl={user.imageUrl}
+                        viewerIdentity={identity}
+                        isFollowing={isFollowing}
+                        name={stream.name}
+                    />
                 </div>
                 <div
                     className={cn(
@@ -91,6 +100,7 @@ export const StreamPlayerSkeleton = () => {
                 className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10"
             >
                 <VideoSkeleton />
+                <HeaderSkeleton />
             </div>
             <div
                 className="col-span-1 bg-background"
