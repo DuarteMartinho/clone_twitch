@@ -1,14 +1,34 @@
 import { UserButton } from "@clerk/nextjs"
+import { redirect } from "next/navigation";
+import { Results, ResultsSkeleton } from "./_components/Results";
+import { Suspense } from "react";
 
-export default function Home() {
+interface SearchPageProps {
+    searchParams: {
+        q?: string;
+    };
+}
+
+export default function Search({
+    searchParams: {
+        q
+    }
+}: SearchPageProps) {
+    if (!q) {
+        redirect("/");
+    }
+
     return (
         <div
-            className="flex flex-col gap-y-4"
+            className="h-full p-8 mx-auto"
         >
-            <h1>Search</h1>
-            <UserButton
-                afterSignOutUrl="/"
-            />
+            <Suspense
+                fallback={<ResultsSkeleton />}
+            >
+                <Results
+                    q={q}
+                />
+            </Suspense>
         </div>
     )
 }
