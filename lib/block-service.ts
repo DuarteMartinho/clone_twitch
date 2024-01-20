@@ -93,6 +93,10 @@ export const blockUser = async (id: string) => {
     },
   });
 
+  if (!block) {
+    throw new Error('Error blocking user');
+  }
+
   return block;
 };
 
