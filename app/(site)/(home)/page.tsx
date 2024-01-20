@@ -1,10 +1,16 @@
+import { Suspense } from "react";
+import { Results, ResultsSkeleton } from "./_components/Results";
 
 export default function Home() {
   return (
     <div
-      className="flex flex-col gap-y-4"
+      className="h-full p-8 mx-auto"
     >
-      <h1>Home Page</h1>
+      <Suspense
+        fallback={<ResultsSkeleton />}
+      >
+        <Results />
+      </Suspense>
     </div>
   )
 }
