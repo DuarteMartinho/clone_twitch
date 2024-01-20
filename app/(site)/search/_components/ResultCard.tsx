@@ -29,7 +29,6 @@ export const ResultCard = ({ data }: ResultCardProps) => {
                 <div
                     className="relative h-[9rem] w-[16rem]"
                 >
-
                     <Thumbnail
                         src={data.thumbnailUrl}
                         fallback={data.user.imageUrl}

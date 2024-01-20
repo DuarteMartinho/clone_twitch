@@ -10,7 +10,6 @@ export const Results = async ({
     q
 }: ResultsProps) => {
     const data = await searchStreams(q);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     return (
         <div>
